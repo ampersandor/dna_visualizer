@@ -1,0 +1,16 @@
+<!-- dna_app/templates/dna_app/dna_form.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DNA Sequence Input</title>
+</head>
+<body>
+    <h1>Enter DNA Sequences</h1>
+    <form method="get" action="{% url 'plot_dna' %}">
+        {{ form.as_p }}
+        <button type="submit">Generate Plot</button>
+    </form>
+</body>
+</html>
