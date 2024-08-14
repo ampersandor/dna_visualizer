@@ -1,4 +1,4 @@
 Django
 matplotlib
 networkx
-guvicorn
+gunicorn

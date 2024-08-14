@@ -1,25 +1,24 @@
-# fastapi-deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: dna-app
+  name: postgres
   labels:
-    app: dna-app
+    app: postgres
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
-      app: dna-app
+      app: postgres
   template:
     metadata:
       labels:
-        app: dna-app
+        app: postgres
     spec:
       containers:
-        - name: dna-app
-          image: ampersandor/dna-visualizer:latest
+        - name: postgres
+          image: postgres:13
           ports:
-            - containerPort: 8000
+            - containerPort: 5432
           env:
             - name: POSTGRES_DB
               value: qwerdb
@@ -27,17 +26,19 @@ spec:
               value: qwer
             - name: POSTGRES_PASSWORD
               value: qwer
-            - name: POSTGRES_HOST
-              value: postgres-service
+          volumeMounts:
+            - name: postgres-storage
+              mountPath: /var/lib/postgresql/data
+      volumes:
+        - name: postgres-storage
+          emptyDir: {}
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: dna-service
+  name: postgres-service
 spec:
-  type: LoadBalancer
   ports:
-    - port: 8000
-      targetPort: 8000
+    - port: 5432
   selector:
-    app: dna-app
+    app: postgres

@@ -19,5 +19,5 @@ COPY . /app/
 EXPOSE 8000
 RUN python3 
 # Run the Django development server
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "myproject.wsgi:application"]
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "dna_visualizer.wsgi:application"]
 
